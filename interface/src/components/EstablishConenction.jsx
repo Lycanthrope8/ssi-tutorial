@@ -32,6 +32,9 @@ const EstablishConenction = ({
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/create-invitation`,
         {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
           label: isVerifier ? "Verifier" : "Issuer",
           alias: isVerifier ? "Verifier" : "Issuer",
           domain: `${process.env.NEXT_PUBLIC_API_URL}`,
@@ -74,15 +77,23 @@ const EstablishConenction = ({
 
       if(connection_id){
         const response_acapy = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/connections?connectionId=${connection_id}`
-        );
+          `${process.env.NEXT_PUBLIC_API_URL}/connections?connectionId=${connection_id}`,{
+            headers: {
+              "ngrok-skip-browser-warning": "true",
+          }
+      });
         console.log(response_acapy);
   
         return response_acapy;
       }
 
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/connections?outOfBandId=${outOfBandId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/connections?outOfBandId=${outOfBandId}`,
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
       );
       console.log(response);
 

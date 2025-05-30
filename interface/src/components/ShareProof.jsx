@@ -26,7 +26,12 @@ const ShareProof = ({isVerifier, setActiveStep, connectionId }) => {
     try {
       const proofResp = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/send-proof-request`,
-        { proofRequestlabel: "IT Certificate", connectionId, version: "1.0" }
+        { proofRequestlabel: "IT Certificate", connectionId, version: "1.0" },
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
       );
       console.log("Proof response: ", JSON.stringify(proofResp));
       await proofStatusCheck(proofResp.data.id ?? proofResp.data.pres_ex_id);
@@ -42,7 +47,12 @@ const ShareProof = ({isVerifier, setActiveStep, connectionId }) => {
       try {
         if (proofRecordId) {
           const proofData = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/proof-data/${proofRecordId}`
+            `${process.env.NEXT_PUBLIC_API_URL}/proof-data/${proofRecordId}`,
+            {
+              headers: {
+                "ngrok-skip-browser-warning": "true",
+              },
+            }
           );
           console.log('------>>> Proof data: ', JSON.stringify(proofData));
 
